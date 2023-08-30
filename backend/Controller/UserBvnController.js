@@ -1,11 +1,9 @@
-const asyncHandler = require('express-async-handler');
-const UserBvn = require('../Models/userBvnModel');
-const Joi = require('@hapi/joi');
-const { bvnValidateSchema } = require('../Models/validation_schema');
-const sdk = require('api')('@dojahinc/v1.0#62779ea25dfa1d0034110bf6');
-const axios = require('axios');
-
-console.log(sdk, '____');
+const asyncHandler = require("express-async-handler");
+const UserBvn = require("../models/userBvnModel");
+const Joi = require("@hapi/joi");
+const { bvnValidateSchema } = require("../models/validationSchema");
+const sdk = require("api")("@dojahinc/v1.0#62779ea25dfa1d0034110bf6");
+const axios = require("axios");
 
 const getUserBvn = asyncHandler(async (req, res) => {
   const userBvns = await UserBvn.find();
@@ -15,10 +13,14 @@ const getUserBvn = asyncHandler(async (req, res) => {
 
 const setUserBvn = asyncHandler(async (req, res) => {
   try {
+    console.log(req.body);
     await bvnValidateSchema.validateAsync(req.body);
 
+    // Use the SDK method to verify BVN
+    const data = await sdk.verifyBvn(req.body.bvn);
+
     const response = {
-      message: 'success',
+      message: "success",
       bvn: req.body.bvn,
       imageDetail: data.entity.image,
       basicDetail: {
@@ -50,7 +52,7 @@ const updateUserBvn = asyncHandler(async (req, res) => {
 
   if (!userbvn) {
     res.status(400);
-    throw new Error('Empty BVN in request');
+    throw new Error("Empty BVN in request");
   }
 
   const updatedUserBvn = await UserBvn.findByIdAndUpdate(
@@ -69,7 +71,7 @@ const deleteUserBvn = asyncHandler(async (req, res) => {
 
   if (!userbvn) {
     res.status(400);
-    throw new Error('Empty BVN in request');
+    throw new Error("Empty BVN in request");
   }
 
   await userbvn.remove();
