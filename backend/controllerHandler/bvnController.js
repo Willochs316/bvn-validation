@@ -1,5 +1,5 @@
 const asyncHandler = require("express-async-handler");
-const UserBvn = require("../models/userBvnModel");
+const UserBvn = require("../models/bvnModel");
 const Joi = require("@hapi/joi");
 const { bvnValidateSchema } = require("../models/validationSchema");
 const sdk = require("api")("@dojahinc/v1.0#62779ea25dfa1d0034110bf6");

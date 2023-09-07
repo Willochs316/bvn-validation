@@ -3,9 +3,9 @@ const router = express.Router();
 const {
   getUserBvn,
   setUserBvn,
-  updateUserBvn,
   deleteUserBvn,
-} = require("../controller/userBvnController");
+  updateUserBvn,
+} = require("../controllerHandler/bvnController");
 
 router.route("/").get(getUserBvn).post(setUserBvn);
 router.route("/:id").delete(deleteUserBvn).put(updateUserBvn);

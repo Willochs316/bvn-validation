@@ -19,7 +19,7 @@ app.use(
   })
 );
 
-app.use("/api/setUserBvn", require("./routes/userBvnRoutes"));
+app.use("/api/setUserBvn", require("./routes/bvnRoutes"));
 
 app.use(errorHandler);
 
