@@ -3,7 +3,7 @@ const dotenv = require("dotenv").config();
 const cors = require("cors");
 const colors = require("colors");
 const connectDB = require("./config/db");
-const { errorHandler } = require("./middleware/middleware");
+const { errorHandler } = require("./middleware/errorMiddleware");
 const port = process.env.PORT || 5000;
 
 connectDB();
@@ -19,7 +19,7 @@ app.use(
   })
 );
 
-app.use("/api/setUserBvn", require("./routes/bvnRoutes"));
+app.use("/api/setUserBvn", require("./routes/userBvnRoutes"));
 
 app.use(errorHandler);
 
